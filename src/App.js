@@ -1,23 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import {Button, Row, Col} from 'react-bootstrap'
 
 function App() {
+
+ const openPopup = () => {
+
+
+ }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Row className="py-10">
+        <Col xs={4}></Col>
+        <Col xs={4}> <Button  variant="success">Success</Button>
+        
+        </Col>
+        <Col xs={4}></Col>
+      </Row>
+      
     </div>
   );
 }

@@ -1,51 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {useState} from 'react'
-import {Button, Row, Col, Modal} from 'react-bootstrap'
+import React,{lazy, Suspense} from "react";
+import { Container } from 'react-bootstrap';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+import { Slide } from 'react-toastify'; //other option = Slide, Zoom, Flip, Bounce 
 
-function App() {
+const Sidebar = lazy(() => import("./components/Sidebar/Sidebar"));
+const VoidConfirmation = lazy(() => import("./screens/StopPayment/VoidConfirmation"));
+const HomeScreen = lazy(() => import("./screens/HomeScreen"));
 
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
- const openPopup = () => {
-
-
- }
-
-  return (
-    <div className="App">
-      {/* <Row className="py-4">
-        <Col xs={4}></Col>
-        <Col xs={4}> <Button  variant="success">Success</Button>
-        
-        </Col>
-        <Col xs={4}></Col>
-      </Row> */}
-      <Button variant="primary" onClick={handleShow} className="modal-button">
-        Launch demo modal
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+const App = () => {
+  return(
+    <Router>
+      <Suspense fallback={<div>Loading...</div>}>
+        {/* <Header /> */}
+        <Sidebar />
+      <ToastContainer autoClose={5000} limit={10} transition={Slide} />
+      <main className="py-2">
+          <Container>
+            <Route path='/void-confirmation' component={VoidConfirmation} />
+            <Route path='/' component={HomeScreen} exact />            
+        </Container>
+      </main>
       
-    </div>
-  );
+      </Suspense>
+    </Router>);
 }
 
 export default App;
